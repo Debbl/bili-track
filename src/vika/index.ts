@@ -1,7 +1,6 @@
 import type {
   ICreateRecordsReqParams,
   IGetRecordsReqParams,
-  IRecord,
 } from "@vikadata/vika";
 import { Vika } from "@vikadata/vika";
 import { DATA_SHEET_FANS_ID, DATA_SHEET_UPS_ID, VIKA_TOKEN } from "~/config";
