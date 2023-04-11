@@ -186,7 +186,7 @@ export default function Home() {
             alignItems: "center",
           }}
         >
-          loading
+          <span>loading</span>
         </div>
       )}
       {options.map((o) => (
