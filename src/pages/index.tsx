@@ -86,7 +86,7 @@ export default function Home() {
           `${d.getFullYear()}/${
             d.getMonth() + 1
           }/${d.getDate()} ${d.getHours()}:${d
-            .getMonth()
+            .getMinutes()
             .toString()
             .padStart(2, "0")}`,
           f.follower,
