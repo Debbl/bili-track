@@ -94,7 +94,7 @@ export default function Home() {
       });
       const markPointValues = [source[0]];
       for (let i = 1; i < source.length; i++) {
-        markPointValues.push(source[i] - source[i - 1]);
+        markPointValues.push(source[i][1] - source[i - 1][1]);
       }
       const numIntl = new Intl.NumberFormat("en", { style: "decimal" });
       const markPointData = source.map((s, i) => {
