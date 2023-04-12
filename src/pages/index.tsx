@@ -92,10 +92,10 @@ export default function Home() {
           f.follower,
         ];
       });
-      const markPointValues = source.reduce(
-        (a, b) => [...a, b[1] - a.at(-1)!],
-        [0]
-      );
+      const markPointValues = [source[0]];
+      for (let i = 1; i < source.length; i++) {
+        markPointsValues.push(source[i] - source[i - 1]);
+      }
       const numIntl = new Intl.NumberFormat("en", { style: "decimal" });
       const markPointData = source.map((s, i) => {
         const v = markPointValues[i + 1];
