@@ -20,9 +20,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
+  if (req.query.key !== "trigger-by-vercel") {
+    res.status(403).send("Please use Vercel Cron Jobs trigger the request!");
+    return;
+  }
   const upsRes = await vika_view("ups");
 
-  if (!upsRes.success) res.status(503);
+  if (!upsRes.success) {
+    res.status(503);
+    return;
+  }
 
   // get bilibili data
   const data = upsRes!.data!.records as any as VikaData;
@@ -37,7 +44,10 @@ export default async function handler(
         })}`
       )
     ).json();
-    if (fRes.data !== 0) res.status(503);
+    if (fRes.data !== 0) {
+      res.status(503);
+      return;
+    }
     wData.push({
       fields: {
         mid: fRes.data.card.mid,
@@ -51,7 +61,10 @@ export default async function handler(
 
   // write data vika
   const wRes = await vika_create("fans", wData);
-  if (!wRes.success) res.status(503);
+  if (!wRes.success) {
+    res.status(503);
+    return;
+  }
 
   res.status(200).json(wRes);
 }
