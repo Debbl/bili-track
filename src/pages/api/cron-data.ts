@@ -27,7 +27,7 @@ export default async function handler(
   const upsRes = await vika_view("ups");
 
   if (!upsRes.success) {
-    res.status(503);
+    res.status(503).end();
     return;
   }
 
@@ -44,8 +44,8 @@ export default async function handler(
         })}`
       )
     ).json();
-    if (fRes.data !== 0) {
-      res.status(503);
+    if (fRes.data === 0) {
+      res.status(503).end();
       return;
     }
     wData.push({
@@ -62,7 +62,7 @@ export default async function handler(
   // write data vika
   const wRes = await vika_create("fans", wData);
   if (!wRes.success) {
-    res.status(503);
+    res.status(503).end();
     return;
   }
 
