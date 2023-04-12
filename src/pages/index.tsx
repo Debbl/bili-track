@@ -98,7 +98,7 @@ export default function Home() {
       }
       const numIntl = new Intl.NumberFormat("en", { style: "decimal" });
       const markPointData = source.map((s, i) => {
-        const v = markPointValues[i + 1];
+        const v = markPointValues[i];
         const fv = numIntl.format(v);
         return {
           name: s[0],
