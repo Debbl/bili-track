@@ -2,5 +2,5 @@
 - Get bilibili up followers per day
 
 # Usage
-- Nextjs Cron Jobs
+- Vercel Cron Jobs
 - Vika

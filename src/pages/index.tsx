@@ -1,5 +1,5 @@
 import { useRequest } from "ahooks";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import ReactECharts from "~/components/ReactECharts";
 
 type Data = {
@@ -45,9 +45,14 @@ interface Option {
   series: [
     {
       type: string;
+      markPoint: {
+        data: any[];
+        symbol: string;
+      };
       label: {
         show: boolean;
         position: string;
+        formatter: (p: { data: [string, number] }) => string;
       };
     }
   ];
@@ -75,7 +80,7 @@ export default function Home() {
     });
     for (const key in rawOptions) {
       const o = rawOptions[key];
-      const source = o.fields.map((f) => {
+      const source: [string, number][] = o.fields.map((f) => {
         const d = new Date(f.update_time);
         return [
           `${d.getFullYear()}/${
@@ -86,6 +91,22 @@ export default function Home() {
             .padStart(2, "0")}`,
           f.follower,
         ];
+      });
+      const markPointValues = source.reduce(
+        (a, b) => [...a, b[1] - a.at(-1)!],
+        [0]
+      );
+      const numIntl = new Intl.NumberFormat("en", {
+        maximumSignificantDigits: 3,
+      });
+      const markPointData = source.map((s, i) => {
+        const v = markPointValues[i + 1];
+        const fv = numIntl.format(v);
+        return {
+          name: s[0],
+          coord: [s[0], 0],
+          value: v > 0 ? `+${fv}` : `-${fv}`,
+        };
       });
       options.push({
         title: {
@@ -103,9 +124,16 @@ export default function Home() {
         series: [
           {
             type: "line",
+            markPoint: {
+              data: markPointData,
+              symbol: "pin",
+            },
             label: {
               show: true,
-              position: "bottom",
+              position: "top",
+              formatter: ({ data }) => {
+                return numIntl.format(data[1]);
+              },
             },
           },
         ],
@@ -113,66 +141,6 @@ export default function Home() {
     }
     return options;
   }, [data]);
-
-  // useEffect(() => {
-  //   async function effect() {
-  //     const data: Data = await (await fetch("/api/get-data")).json();
-  //     const rawOptions: RawOptions = {};
-  //     const options: Option[] = [];
-
-  //     data.forEach((d) => {
-  //       if (!rawOptions[d.fields.mid]) {
-  //         rawOptions[d.fields.mid] = {
-  //           name: d.fields.name,
-  //           fields: [],
-  //         };
-  //       }
-  //       rawOptions[d.fields.mid].fields.push(d.fields);
-  //     });
-
-  //     for (const key in rawOptions) {
-  //       const o = rawOptions[key];
-  //       const source = o.fields.map((f) => {
-  //         const d = new Date(f.update_time);
-  //         return [
-  //           `${d.getFullYear()}/${
-  //             d.getMonth() + 1
-  //           }/${d.getDate()} ${d.getHours()}:${d
-  //             .getMonth()
-  //             .toString()
-  //             .padStart(2, "0")}`,
-  //           f.follower,
-  //         ];
-  //       });
-  //       options.push({
-  //         title: {
-  //           text: o.name,
-  //         },
-  //         dataset: {
-  //           source,
-  //         },
-  //         xAxis: {
-  //           type: "category",
-  //         },
-  //         yAxis: {
-  //           type: "value",
-  //         },
-  //         series: [
-  //           {
-  //             type: "line",
-  //             label: {
-  //               show: true,
-  //               position: "bottom",
-  //             },
-  //           },
-  //         ],
-  //       });
-  //     }
-
-  //     setOptions(options);
-  //   }
-  //   effect();
-  // }, []);
 
   return (
     <div>
@@ -189,9 +157,17 @@ export default function Home() {
           <span>loading</span>
         </div>
       )}
-      {options.map((o) => (
-        <ReactECharts key={o.title.text} option={o as any} />
-      ))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {options.map((o) => (
+          <ReactECharts key={o.title.text} option={o as any} />
+        ))}
+      </div>
     </div>
   );
 }
