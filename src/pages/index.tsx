@@ -92,7 +92,7 @@ export default function Home() {
           f.follower,
         ];
       });
-      const markPointValues = [source[0]];
+      const markPointValues = [source[0][1]];
       for (let i = 1; i < source.length; i++) {
         markPointValues.push(source[i][1] - source[i - 1][1]);
       }
