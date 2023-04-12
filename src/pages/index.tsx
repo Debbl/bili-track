@@ -96,9 +96,7 @@ export default function Home() {
         (a, b) => [...a, b[1] - a.at(-1)!],
         [0]
       );
-      const numIntl = new Intl.NumberFormat("en", {
-        maximumSignificantDigits: 3,
-      });
+      const numIntl = new Intl.NumberFormat("en", { style: "decimal" });
       const markPointData = source.map((s, i) => {
         const v = markPointValues[i + 1];
         const fv = numIntl.format(v);
