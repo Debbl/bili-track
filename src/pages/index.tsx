@@ -61,6 +61,9 @@ interface Option {
 async function getData() {
   return await (await fetch("/api/get-data")).json();
 }
+function formatByPad(num: number) {
+  return num.toString().padStart(2, "0");
+}
 
 export default function Home() {
   const { data, loading } = useRequest<Data, any>(() => getData());
@@ -83,12 +86,9 @@ export default function Home() {
       const source: [string, number][] = o.fields.map((f) => {
         const d = new Date(f.update_time);
         return [
-          `${d.getFullYear()}/${
-            d.getMonth() + 1
-          }/${d.getDate()} ${d.getHours()}:${d
-            .getMinutes()
-            .toString()
-            .padStart(2, "0")}`,
+          `${d.getFullYear()}/${formatByPad(d.getMonth() + 1)}/${formatByPad(
+            d.getDate()
+          )} ${formatByPad(d.getHours())}:${formatByPad(d.getMinutes())}`,
           f.follower,
         ];
       });
