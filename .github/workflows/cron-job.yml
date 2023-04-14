@@ -1,0 +1,16 @@
+name: CronJob
+
+on:
+  schrdule:
+    - corn: "0 16 * * *"
+  workflow_dispatch:
+
+jobs:
+  cron-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fetch API Data 📦
+        uses: JamesIves/fetch-api-data-action@v2
+        with:
+          endpoint: https://bili-track.vercel.app/api/cron-data?key=trigger-by-vercel
