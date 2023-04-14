@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "/api/cron-data?key=trigger-by-vercel",
-      "schedule": "0 16 * * *"
-    }
-  ]
-}
