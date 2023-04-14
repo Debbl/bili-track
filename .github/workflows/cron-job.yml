@@ -1,7 +1,7 @@
 name: CronJob
 
 on:
-  schrdule:
+  schedule:
     - corn: "0 16 * * *"
   workflow_dispatch:
 
