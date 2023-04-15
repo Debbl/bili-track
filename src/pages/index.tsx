@@ -56,6 +56,9 @@ interface Option {
       };
     }
   ];
+  dataZoom: {
+    type: "inside" | "slider";
+  };
 }
 
 async function getData() {
@@ -88,7 +91,7 @@ export default function Home() {
         return [
           `${d.getFullYear()}/${formatByPad(d.getMonth() + 1)}/${formatByPad(
             d.getDate()
-          )} ${formatByPad(d.getHours())}:${formatByPad(d.getMinutes())}`,
+          )}`,
           f.follower,
         ];
       });
@@ -135,6 +138,9 @@ export default function Home() {
             },
           },
         ],
+        dataZoom: {
+          type: "slider",
+        },
       });
     }
     return options;
