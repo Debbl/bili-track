@@ -6,6 +6,12 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
+  if (request.query.key !== "trigger-by-vercel") {
+    response
+      .status(403)
+      .send("Please use Vercel Cron Jobs trigger the request!");
+    return;
+  }
   const client = await db.connect();
 
   try {
