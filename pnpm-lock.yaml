@@ -14,8 +14,8 @@ dependencies:
     specifier: ^1.1.5
     version: 1.1.5
   ahooks:
-    specifier: ^3.7.6
-    version: 3.7.6(react@18.2.0)
+    specifier: ^3.7.7
+    version: 3.7.7(react@18.2.0)
   echarts:
     specifier: ^5.4.2
     version: 5.4.2
@@ -46,8 +46,8 @@ devDependencies:
     specifier: ^0.0.38
     version: 0.0.38(eslint@8.38.0)(typescript@5.0.4)
   eslint-define-config:
-    specifier: ^1.17.0
-    version: 1.17.0
+    specifier: ^1.20.0
+    version: 1.20.0
 
 packages:
 
@@ -535,8 +535,8 @@ packages:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
 
-  /ahooks@3.7.6(react@18.2.0):
-    resolution: {integrity: sha512-p+2j4H/BI9vqXR0fZI7S/q6fUPxPklQnHqvU7zAVBljMFNSFeYRWB2iHHbjpXGOwUTOBYCh2OuvIHyJYj6Lpag==}
+  /ahooks@3.7.7(react@18.2.0):
+    resolution: {integrity: sha512-5e5WlPq81Y84UnTLOKIQeq2cJw4aa7yj8fR2Nb/oMmXPrWMjIMCbPS1o+fpxSfCaNA3AzOnnMc8AehWRZltkJQ==}
     engines: {node: '>=8.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -1085,8 +1085,8 @@ packages:
       eslint-plugin-promise: 6.1.1(eslint@8.38.0)
     dev: true
 
-  /eslint-define-config@1.17.0:
-    resolution: {integrity: sha512-J1sweMoWsLcokaiAlfOCC4yMoHbvC/kDAxorm5TkUcD74w+kauMIyjKLM3dOadNxVKOjDiYN1Tu2x9N+4EUuuQ==}
+  /eslint-define-config@1.20.0:
+    resolution: {integrity: sha512-JLhyTcY5eOUGXoPP4Ldnf1TMOllRt4vbvuAtkwq+ugU0JGDqosdRLYWMtn9NjYAd9rApR5EcItdSmpY6FsILew==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13', pnpm: '>= 7.0.0'}
     dev: true
 
