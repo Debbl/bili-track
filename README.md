@@ -2,14 +2,11 @@
 - Get bilibili up followers per day
 
 # Tech
-- Vercel Cron Jobs
-- Vika
+- GitHub Actions Cron Jobs
+- Vercel Postgres 
 - ahooks
 
 # Usage
-- create `.env.local` and set these tokens
-```
-VIKA_TOKEN=uskxxxxxxxxxxxxx
-DATA_SHEET_UPS_ID=xxxxxxxxxxxxx
-DATA_SHEET_FANS_ID=xxxxxxxxxxx
+```bash
+vercel env pull .env.development.local
 ```
