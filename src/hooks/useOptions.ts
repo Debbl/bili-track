@@ -1,12 +1,10 @@
 import { useRequest } from "ahooks";
 import { useMemo } from "react";
+import dayjs from "dayjs";
 import type { Data, Option, RawOptions } from "~/types";
 
 async function getData() {
   return await (await fetch("/api/get-data")).json();
-}
-function formatByPad(num: number) {
-  return num.toString().padStart(2, "0");
 }
 
 const useOptions = () => {
@@ -16,24 +14,19 @@ const useOptions = () => {
     const options: Option[] = [];
     if (!data) return [];
     data.forEach((d) => {
-      if (!rawOptions[d.fields.mid]) {
-        rawOptions[d.fields.mid] = {
-          name: d.fields.name,
+      if (!rawOptions[d.mid]) {
+        rawOptions[d.mid] = {
+          name: d.name,
           fields: [],
         };
       }
-      rawOptions[d.fields.mid].fields.push(d.fields);
+      rawOptions[d.mid].fields.push(d);
     });
     for (const key in rawOptions) {
       const o = rawOptions[key];
       const source: [string, number][] = o.fields.map((f) => {
-        const d = new Date(f.update_time);
-        return [
-          `${d.getFullYear()}/${formatByPad(d.getMonth() + 1)}/${formatByPad(
-            d.getDate()
-          )}`,
-          f.follower,
-        ];
+        const d = dayjs(f.update_time).add(8, "hour");
+        return [d.format("YYYY/MM/DD HH:mm:ss"), f.follower];
       });
       const markPointValues = [source[0][1]];
       for (let i = 1; i < source.length; i++) {

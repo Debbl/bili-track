@@ -1,15 +1,10 @@
 export type Data = {
-  recordId: string;
-  createdAt: number;
-  updatedAt: number;
-  fields: {
-    mid: string;
-    name: string;
-    archive_count: number;
-    follower: number;
-    like_num: number;
-    update_time: string;
-  };
+  mid: string;
+  name: string;
+  archive_count: number;
+  follower: number;
+  like_num: number;
+  update_time: string;
 }[];
 export type RawOptions = Record<
   string,

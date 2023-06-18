@@ -1,29 +1,17 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { db } from "@vercel/postgres";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { vika_view } from "~/vika";
-
-type Data = {
-  recordId: string;
-  createdAt: number;
-  updatedAt: number;
-  fields: {
-    mid: string;
-    name: string;
-    archive_count: number;
-    follower: number;
-    like_num: number;
-    update_time: string;
-  };
-}[];
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+  request: NextApiRequest,
+  response: NextApiResponse
 ) {
-  const response = await vika_view("fans");
+  const client = await db.connect();
 
-  if (response.success) {
-    res.status(200).json(response.data.records as any as Data);
+  try {
+    const fansRes = await client.sql`SELECT * FROM bili_track_fans`;
+
+    return response.status(200).json(fansRes.rows);
+  } catch (error) {
+    return response.status(500).json({ error });
   }
-  res.status(403);
 }
